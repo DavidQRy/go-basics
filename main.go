@@ -5,18 +5,38 @@ import "fmt"
 type Celsius float64
 
 func (c Celsius) ToFahrenheit() float64 {
-	return float64(c * 9 / 5 * 32)
+	return float64(c*9/5 + 32)
 }
 
+func (c Celsius) ToKelvin() float64 {
+	return float64(c + 273.15)
+}
+
+func (c Celsius) String() string {
+	return fmt.Sprintf("%.2f °C", c)
+}
+
+func main() {
+	var temp Celsius = 25
+
+	// temp := Celsius(25)
+
+	tempPtr := new(Celsius)
+	*tempPtr = 25
+	fmt.Println(tempPtr)
+
+	fmt.Println(temp.ToFahrenheit()) // 77
+	fmt.Println(temp.ToKelvin())     // 298.15
+	fmt.Println(temp.String())       // "25.00 °C"
+}
+
+/*
 type MyInt int
 
 func main() {
 	var num MyInt = 5
 	fmt.Println(num)
-
-	temp := Celsius(25)
-	fmt.Println(temp.ToFahrenheit())
-}
+} */
 
 /* func main() {
 	for i := 0; i < 10; i++ {

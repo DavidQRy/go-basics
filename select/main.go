@@ -1,8 +1,28 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
+
+	ch := make(chan string)
+
+	go func() {
+		time.Sleep((2 * time.Second))
+		ch <- "Done"
+	}()
+
+	select {
+	case msg := <-ch:
+		fmt.Println(msg)
+	case <-time.After(1 * time.Second):
+		fmt.Println("Timeout: No message received within 1 second")
+	}
+}
+
+/* func main() {
 	ch1 := make(chan string)
 	ch2 := make(chan string)
 
@@ -20,4 +40,4 @@ func main() {
 	case msg2 := <-ch2:
 		fmt.Println(msg2)
 	}
-}
+} */
